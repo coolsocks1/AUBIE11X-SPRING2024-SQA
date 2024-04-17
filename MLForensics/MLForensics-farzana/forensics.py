@@ -69,3 +69,18 @@ sample_bool = True
 if __name__ == "__main__":
     logging.info("Starting forensics testing...")
     method_1_result = method_1(sample_int)
+    logging.info(f"Method 1 result: {method_1_result}")
+
+    method_2_result = method_2(sample_str)
+    logging.info(f"Method 2 result: {method_2_result}")
+
+    method_3_result = method_3(sample_list)
+    logging.info(f"Method 3 result: {method_3_result}")
+
+    method_4_result = method_4(sample_float)
+    logging.info(f"Method 4 result: {method_4_result}")
+
+    method_5_result = method_5(sample_bool)
+    logging.info(f"Method 5 result: {method_5_result}")
+
+    logging.info("Forensics testing completed.")
