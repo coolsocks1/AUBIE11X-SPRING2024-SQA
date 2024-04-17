@@ -1,6 +1,6 @@
 import hypothesis.strategies as st
 from hypothesis import given
-from  import   # Import the Python methods you want to fuzz
+from empirical import report.py  # Import the Python methods you want to fuzz
 
 # Define fuzzing strategies for input parameters
 # You can customize these strategies based on the expected input types of your methods
