@@ -21,10 +21,15 @@ jobs:
         with:
           python-version: '3'  # Specify the Python version if different
 
-      - name: Install dependencies
+      - name: Check if requirements.txt exists
+        run: test -f requirements.txt || echo "::error::requirements.txt not found"
+        continue-on-error: true
+
+      - name: Install dependencies (if requirements.txt exists)
+        if: success()
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Install dependencies if needed
+          pip install -r requirements.txt  # Ensure requirements.txt is in the root directory
 
       - name: Run forensics.py
         run: |
