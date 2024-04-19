@@ -2,7 +2,7 @@
 '''
 Akond Rahman 
 Nov 20, 2020 
-Holder for constants needed to implement FAME-ML 
+Holder for constants needed to implement FAME-ML (simple change)
 '''
 
 FUNC_KW = 'func'
