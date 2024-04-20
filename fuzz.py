@@ -1,91 +1,80 @@
-import hypothesis.strategies as st
-from hypothesis import given
-import logging
+import random 
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+def divide(v1, v2):
+   return v1 / v2 
 
-# Define fuzzing strategies for input parameters
-input_strategy = st.text() | st.integers() | st.floats()  # Customize based on method input types
+def getItem(data, index):
+   element = data[index]
+   return element
 
-# Mock implementation of the methods for demonstration purposes
-def method_1(input_param):
-    if isinstance(input_param, str):
-        return input_param.upper()
-    elif isinstance(input_param, int):
-        return input_param * 2
-    else:
-        raise ValueError("Invalid input type")
+def absValue(number):
+   if number < 0:
+      raise ValueError("Input must be non-negative")
+   return number
 
-def method_2(input_param):
-    return input_param + 10
+def sumList(numbers):
+   total = 0
+   for num in numbers:
+      total += num
+   return total
 
-def method_3(input_param):
-    if input_param % 2 == 0:
-        return "Even"
-    else:
-        return "Odd"
+def isUpperCase(char):
+   return char.isupper()
 
-def method_4(input_param):
-    if isinstance(input_param, float):
-        return round(input_param, 2)
-    else:
-        raise ValueError("Invalid input type")
+def fuzzValues(val1, val2):
+   res = divide(val1, val2)
+   return res  
 
-def method_5(input_param):
-    if isinstance(input_param, str):
-        return input_param[::-1]
-    else:
-        raise ValueError("Invalid input type")
+def simpleFuzzer1(): 
+    ls_ = ['123', 'True', 'False', [] , None, '/', '2e34r']
+    for x in ls_:
+      print(x)
+      if isinstance(x, str):
+         mod_x = x + str( random.randint(1, 10) )
+      elif isinstance(x, int): 
+         mod_x = x + random.random()
+      try:
+      	 fuzzValues( x, mod_x )  
+      except Exception as e:
+      	print(f"{e}")
 
-# Define fuzzing functions for each method
-@given(input_param=input_strategy)
-def fuzz_method_1(input_param):
-    try:
-        result = method_1(input_param)
-        logging.info(f"Method 1 executed with input: {input_param}, result: {result}")
-    except Exception as e:
-        logging.error(f"Error in Method 1 with input {input_param}: {e}")
+def simpleFuzzer2():
+   data = [1, 2, 3]
+   index = 4
+   print(data)
+   print(index)
+   try:
+      getItem(data, index)
+   except Exception as e:
+      print(f"{e}")
 
-@given(input_param=input_strategy)
-def fuzz_method_2(input_param):
-    try:
-        result = method_2(input_param)
-        logging.info(f"Method 2 executed with input: {input_param}, result: {result}")
-    except Exception as e:
-        logging.error(f"Error in Method 2 with input {input_param}: {e}")
+def simpleFuzzer3():
+   value = -4
+   print(value)
+   try:
+      absValue(value)
+   except Exception as e:
+      print(f"{e}")
 
-@given(input_param=input_strategy)
-def fuzz_method_3(input_param):
-    try:
-        result = method_3(input_param)
-        logging.info(f"Method 3 executed with input: {input_param}, result: {result}")
-    except Exception as e:
-        logging.error(f"Error in Method 3 with input {input_param}: {e}")
+def simpleFuzzer4():
+   data = ["1", 2, 3]
+   print(data)
+   try:
+      sumList(data)
+   except Exception as e:
+      print(f"{e}")
 
-@given(input_param=input_strategy)
-def fuzz_method_4(input_param):
-    try:
-        result = method_4(input_param)
-        logging.info(f"Method 4 executed with input: {input_param}, result: {result}")
-    except Exception as e:
-        logging.error(f"Error in Method 4 with input {input_param}: {e}")
+def simpleFuzzer5():
+   data = [1, 2, 3]
+   print(data)
+   try:
+      isUpperCase(data)
+   except Exception as e:
+      print(f"{e}")
 
-@given(input_param=input_strategy)
-def fuzz_method_5(input_param):
-    try:
-        result = method_5(input_param)
-        logging.info(f"Method 5 executed with input: {input_param}, result: {result}")
-    except Exception as e:
-        logging.error(f"Error in Method 5 with input {input_param}: {e}")
-
-# Main entry point to run fuzzing
-def main():
-    fuzz_method_1()
-    fuzz_method_2()
-    fuzz_method_3()
-    fuzz_method_4()
-    fuzz_method_5()
-
-if __name__ == "__main__":
-    main()
+if __name__=='__main__':
+    simpleFuzzer1()
+    simpleFuzzer2()
+    simpleFuzzer3()
+    simpleFuzzer4()
+    simpleFuzzer5()
