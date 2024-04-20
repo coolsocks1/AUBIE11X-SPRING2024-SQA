@@ -1,74 +1,90 @@
 import random 
+import os
+import py_parser 
+import constants 
+import numpy as np 
 
-def divide(v1, v2):
-   return v1 / v2 
+def deleteRepo(dirName, type_):
+    print(':::' + type_ + ':::Deleting ', dirName)
+    try:
+        if os.path.exists(dirName):
+            shutil.rmtree(dirName)
+    except OSError:
+        print('Failed deleting, will try manually') 
 
-def getItem(data, index):
-   element = data[index]
-   return element
+def dumpContentIntoFile(strP, fileP):
+    fileToWrite = open( fileP, 'w')
+    fileToWrite.write(strP )
+    fileToWrite.close()
+    return str(os.stat(fileP).st_size)
 
-def absValue(number):
-   if number < 0:
-      raise ValueError("Input must be non-negative")
-   return number
+def makeChunks(the_list, size_):
+    for i in range(0, len(the_list), size_):
+        yield the_list[i:i+size_]
 
-def sumList(numbers):
-   total = 0
-   for num in numbers:
-      total += num
-   return total
+def getPythonCount(path2dir): 
+    usageCount = 0
+    for root_, dirnames, filenames in os.walk(path2dir):
+        for file_ in filenames:
+            full_path_file = os.path.join(root_, file_) 
+            if (file_.endswith('py') ):
+                usageCount +=  1 
+    return usageCount 
 
-def isUpperCase(char):
-   return char.isupper()
-
-def fuzzValues(val1, val2):
-   res = divide(val1, val2)
-   return res  
+def getAllPythonFilesinRepo(path2dir):
+	valid_list = []
+	for root_, dirnames, filenames in os.walk(path2dir):
+		for file_ in filenames:
+			full_path_file = os.path.join(root_, file_) 
+			if( os.path.exists( full_path_file ) ):
+				if (file_.endswith( constants.PY_FILE_EXTENSION ) and (py_parser.checkIfParsablePython( full_path_file ) )   ):
+					valid_list.append(full_path_file) 
+	valid_list = np.unique( valid_list )
+	return valid_list
 
 def simpleFuzzer1(): 
-    ls_ = ['123', 'True', 'False', [] , None, '/', '2e34r']
-    for x in ls_:
-      print(x)
-      if isinstance(x, str):
-         mod_x = x + str( random.randint(1, 10) )
-      elif isinstance(x, int): 
-         mod_x = x + random.random()
-      try:
-      	 fuzzValues( x, mod_x )  
-      except Exception as e:
-      	print(f"{e}")
+    dirName = ''
+    type_ = True
+    print(f"dirName: {dirName}")
+    print(f"type_: {type_}")
+    try:
+       deleteRepo(dirName, type_)  
+    except Exception as e:
+       print(f"{e}")
 
 def simpleFuzzer2():
-   data = [1, 2, 3]
-   index = 4
-   print(data)
-   print(index)
+   strP = True
+   fileP = 0
+   print(f"strP: {strP}")
+   print(f"fileP: {fileP}")
    try:
-      getItem(data, index)
+      dumpContentIntoFile(strP, type_)
    except Exception as e:
       print(f"{e}")
 
 def simpleFuzzer3():
-   value = -4
-   print(value)
+   the_list = []
+   size_ = "5"
+   print(f"the_list: {the_list}")
+   print(f"size_: {size_}")
    try:
-      absValue(value)
+      makeChunks(value)
    except Exception as e:
       print(f"{e}")
 
 def simpleFuzzer4():
-   data = ["1", 2, 3]
+   path2dir = ["1", 2, 3]
    print(data)
    try:
-      sumList(data)
+      getPythonCount(data)
    except Exception as e:
       print(f"{e}")
 
 def simpleFuzzer5():
-   data = [1, 2, 3]
-   print(data)
+   path2dir = [1, 2, 3]
+   print(path2dir)
    try:
-      isUpperCase(data)
+      getAllPythonFilesinRepo(data)
    except Exception as e:
       print(f"{e}")
 
