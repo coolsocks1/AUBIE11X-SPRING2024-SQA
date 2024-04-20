@@ -10,8 +10,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Python dependencies  # Install required libraries
-        run: pip install -r requirements.txt
-
       - name: Run fuzz test script
         run: python fuzz.py  # Execute fuzz.py
