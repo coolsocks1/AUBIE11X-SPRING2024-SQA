@@ -3,12 +3,17 @@
 
 ## Team info
 **Team name** 
+
 Aubie11x
 
 **Team Members**
+
 John Chen 
+
 Ben Hulsey 
+
 Micah Key
+
 William Bingham 
 
 <!-- Body -->

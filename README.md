@@ -1,12 +1,21 @@
 # AUBIE11X-SPRING2024-SQA
 **Team name** 
+
 Aubie11x
 
 **Team Members**
-John Chen 
-Ben Hulsey 
-Micah Key
-William Bingham 
+
+John Chen (jzc0207@auburn.edu)
+
+Ben Hulsey (bph0022@auburn.edu)
+
+Micah Key (mrk0061@auburn.edu)
+
+William Bingham (wrb0029@auburn.edu)
+
+
+
+
 
 ## Project for Software Quality Assurance (CSC 5710/6710) 
 
